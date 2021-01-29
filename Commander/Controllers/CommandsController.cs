@@ -12,12 +12,17 @@ namespace Commander.Controllers
     [ApiController]
     public class CommandsController : ControllerBase
     {
-        private readonly MockRepo repos = new MockRepo();
+        private readonly ICommanderRepo _repos = new MockRepo();
+
+        public CommandsController(ICommanderRepo repsitory)
+        {
+            _repos = repsitory;
+        }
 
         [HttpGet]
         public ActionResult <IEnumerable<Command>> GetAllCommands()
         {
-            var commandItems = repos.GetAllCommands();
+            var commandItems = _repos.GetAllCommands();
 
             return Ok(commandItems);
         }
@@ -26,7 +31,7 @@ namespace Commander.Controllers
         [HttpGet("{id}")]
         public ActionResult <Command> GetCommandById(int id)
         {
-            var singleCommandItem = repos.GetCommandById(id);
+            var singleCommandItem = _repos.GetCommandById(id);
 
             return Ok(singleCommandItem);
         }

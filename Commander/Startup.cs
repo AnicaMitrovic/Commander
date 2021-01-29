@@ -1,3 +1,4 @@
+using Commander.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,8 @@ namespace Commander
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddScoped<ICommanderRepo, MockRepo>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
